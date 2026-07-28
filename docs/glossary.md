@@ -210,3 +210,80 @@ pip install fastapi
 A framework is a collection of tools and rules that helps developers build applications faster.
 
 FastAPI is a Python framework.
+
+# Git Commands
+
+## git add .
+
+Adds all changed files to the staging area.
+
+**Syntax**
+
+```bash
+git add .
+```
+
+**Explanation**
+
+- `git` → Git program
+- `add` → Add changes to the staging area
+- `.` → All changed files in the current project
+
+---
+
+## git commit -m
+
+Creates a new commit (saved snapshot).
+
+**Syntax**
+
+```bash
+git commit -m "Commit message"
+```
+
+**Explanation**
+
+- `git` → Git program
+- `commit` → Create a saved snapshot
+- `-m` → Message
+- `"Commit message"` → Description of the commit
+
+Example:
+
+```bash
+git commit -m "Add glossary documentation"
+```
+
+---
+
+## git push
+
+Uploads your local commits to GitHub.
+
+**Syntax**
+
+```bash
+git push
+```
+
+**Explanation**
+
+- `git` → Git program
+- `push` → Upload commits to the remote repository
+
+---
+
+## git pull
+
+Downloads the latest changes from GitHub.
+
+**Syntax**
+
+```bash
+git pull
+```
+
+**Explanation**
+
+- `git` → Git program
+- `pull` → Download the latest commits from GitHub
