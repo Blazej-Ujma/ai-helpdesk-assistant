@@ -6,7 +6,30 @@
     <title>AI Helpdesk Assistant</title>
 </head>
 <body>
-    <h1>AI Helpdesk Assistant</h1>
-    <p>Welcome to my first FastAPI web application!</p>
+    <header>
+        <h1>AI Helpdesk Assistant</h1>
+        <p>Describe your IT problem and get help.</p>
+    </header>
+
+    <main>
+        <section>
+            <h2>Support Chat</h2>
+
+            <div id="chat-messages">
+                <p>Hello! How can I help you today?</p>
+            </div>
+
+            <form id="chat-form">
+                <label for="user-message">Your message</label>
+                <input
+                    type="text"
+                    id="user-message"
+                    name="user-message"
+                    placeholder="Describe your IT problem..."
+                >
+                <button type="submit">Send</button>
+            </form>
+        </section>
+    </main>
 </body>
 </html>
