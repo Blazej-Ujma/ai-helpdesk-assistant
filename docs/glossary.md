@@ -336,3 +336,29 @@ Other developers can install the exact same packages with:
 ```bash
 pip install -r requirements.txt
 ```
+
+# Commit Message
+
+A commit message is a short description of a commit.
+
+It explains what has changed in the project.
+
+### Good Examples
+
+```text
+Add glossary
+Update README
+Implement FastAPI backend
+Fix typo in glossary
+```
+
+### Avoid
+
+```text
+Update
+Test
+asdf
+123
+```
+
+These messages do not clearly describe what has changed.
