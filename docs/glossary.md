@@ -211,7 +211,7 @@ A framework is a collection of tools and rules that helps developers build appli
 
 FastAPI is a Python framework.
 
-# Git Commands
+# Commands Reference
 
 ## git add .
 
@@ -287,3 +287,52 @@ git pull
 
 - `git` → Git program
 - `pull` → Download the latest commits from GitHub
+
+## pip freeze
+
+Lists all installed Python packages and their exact versions.
+
+**Syntax**
+
+```bash
+pip freeze
+```
+
+**Explanation**
+
+- `pip` → Python package manager
+- `freeze` → Lists all installed packages with their versions
+
+Example output:
+
+```text
+fastapi==0.116.1
+uvicorn==0.35.0
+```
+
+---
+
+## pip freeze > requirements.txt
+
+Saves all installed packages and their versions into the `requirements.txt` file.
+
+**Syntax**
+
+```bash
+pip freeze > requirements.txt
+```
+
+**Explanation**
+
+- `pip` → Python package manager
+- `freeze` → Lists installed packages
+- `>` → Redirects the output into a file
+- `requirements.txt` → Stores all required project dependencies
+
+**Why is this useful?**
+
+Other developers can install the exact same packages with:
+
+```bash
+pip install -r requirements.txt
+```
