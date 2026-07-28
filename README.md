@@ -28,6 +28,12 @@ This project is developed as a learning project for an IT apprenticeship applica
 
 ---
 
-## Status
+## Development Progress
 
-🚧 Day 1 - Project setup
+- ✅ Day 1 – Project setup
+- ⏳ Day 2 – FastAPI backend
+- ⏳ Day 3 – Frontend
+- ⏳ Day 4 – Knowledge base
+- ⏳ Day 5 – AI integration
+- ⏳ Day 6 – Testing & Docker
+- ⏳ Day 7 – Final improvements
