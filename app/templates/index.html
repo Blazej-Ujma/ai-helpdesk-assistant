@@ -4,32 +4,89 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI Helpdesk Assistant</title>
+    <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
-    <header>
-        <h1>AI Helpdesk Assistant</h1>
-        <p>Describe your IT problem and get help.</p>
-    </header>
+
+    <header class="header">
+    <div class="logo">
+        🤖 AI Helpdesk Assistant
+    </div>
+
+    <div class="status">
+        <span class="status-dot"></span>
+
+        <div class="status-text">
+            <strong>Online</strong>
+            <small>Internal IT Support</small>
+        </div>
+    </div>
+</header>
 
     <main>
-        <section>
-            <h2>Support Chat</h2>
+        <section class="chat-card">
 
-            <div id="chat-messages">
-                <p>Hello! How can I help you today?</p>
-            </div>
+    <div class="welcome-message">
+    <strong>Hello! 👋</strong>
+    <p>How can I help you today?</p>
+</div>
 
-            <form id="chat-form">
-                <label for="user-message">Your message</label>
-                <input
-                    type="text"
-                    id="user-message"
-                    name="user-message"
-                    placeholder="Describe your IT problem..."
-                >
-                <button type="submit">Send</button>
-            </form>
-        </section>
+<div id="chat-messages" class="chat-messages"></div>
+
+    <div class="quick-actions">
+        <button
+    type="button"
+    class="quick-action"
+    data-message="I forgot my password and can't log in."
+>
+    🔑 Reset Password
+</button>
+
+<button
+    type="button"
+    class="quick-action"
+    data-message="Outlook won't start on my computer."
+>
+    📧 Outlook Issues
+</button>
+
+<button
+    type="button"
+    class="quick-action"
+    data-message="I can't connect to the company VPN."
+>
+    🌐 VPN Connection
+</button>
+
+<button
+    type="button"
+    class="quick-action"
+    data-message=""
+>
+    ❓ Other IT Issue
+</button>
+    </div>
+
+    <form id="chat-form">
+        <label for="user-message">Your message</label>
+
+        <div class="input-area">
+            <input
+                type="text"
+                id="user-message"
+                name="user-message"
+                placeholder="Describe your IT problem..."
+                autocomplete="off"
+            >
+
+            <button type="submit" class="send-button">
+                Send ▶
+            </button>
+        </div>
+    </form>
+
+</section>
     </main>
+<script src="/static/script.js"></script>
 </body>
 </html>
