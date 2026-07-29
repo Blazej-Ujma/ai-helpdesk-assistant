@@ -54,28 +54,29 @@ chatForm.addEventListener("submit", (event) => {
     messageInput.focus();
 
     setTimeout(() => {
-        typingIndicator.remove();
+    fetch("/chat", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            message: message
+        })
+    })
+        .then((response) => response.json())
+        .then((data) => {
+            typingIndicator.remove();
 
-        const assistantMessage = document.createElement("div");
-        assistantMessage.classList.add(
-            "assistant-message",
-            "message-bubble"
-        );
+            const assistantMessage = document.createElement("div");
+            assistantMessage.classList.add(
+                "assistant-message",
+                "message-bubble"
+            );
 
-        const lowerMessage = message.toLowerCase();
+            assistantMessage.textContent = data.reply;
 
-        if (lowerMessage.includes("password")) {
-            assistantMessage.textContent = responses.password;
-        } else if (lowerMessage.includes("outlook")) {
-            assistantMessage.textContent = responses.outlook;
-        } else if (lowerMessage.includes("vpn")) {
-            assistantMessage.textContent = responses.vpn;
-        } else {
-            assistantMessage.textContent = responses.default;
-        }
-
-        chatMessages.appendChild(assistantMessage);
-
-        chatMessages.scrollTop = chatMessages.scrollHeight;
-    }, 1500);
+            chatMessages.appendChild(assistantMessage);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        });
+}, 1500);
 });

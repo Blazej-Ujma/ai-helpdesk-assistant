@@ -1,0 +1,27 @@
+[
+    {
+        "keywords": [
+            "password",
+            "login",
+            "sign in",
+            "credentials"
+        ],
+        "answer": "I can help you reset your password. Please open the password reset portal and follow the instructions."
+    },
+    {
+        "keywords": [
+            "outlook",
+            "email",
+            "mail"
+        ],
+        "answer": "Please restart Outlook first. If it still does not open, restart your computer and try again."
+    },
+    {
+        "keywords": [
+            "vpn",
+            "remote access",
+            "company network"
+        ],
+        "answer": "Please check your internet connection and reconnect to the company VPN."
+    }
+]
