@@ -26,14 +26,26 @@ This project is developed as a learning project for an IT apprenticeship applica
 - OpenAI API
 - GitHub
 
+## Features
+
+- FastAPI backend
+- Simple web interface
+- External JSON knowledge base
+- Keyword-based FAQ search
+- Multiple keyword matching
+- Responsive chat interface
+- Ready for OpenAI integration
+
 ---
 
 ## Development Progress
 
-- ✅ Day 1 – Project setup
-- ⏳ Day 2 – FastAPI backend
-- ⏳ Day 3 – Frontend
-- ⏳ Day 4 – Knowledge base
-- ⏳ Day 5 – AI integration
-- ⏳ Day 6 – Testing & Docker
-- ⏳ Day 7 – Final improvements
+Current development progress:
+
+- ✅ Web interface
+- ✅ FastAPI backend
+- ✅ FAQ knowledge base
+- ✅ JSON-based support articles
+- ✅ Multiple keyword search
+- ⏳ Ticket system
+- ⏳ OpenAI integration

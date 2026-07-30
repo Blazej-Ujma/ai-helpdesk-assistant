@@ -16,15 +16,14 @@ templates = Jinja2Templates(directory="app/templates")
 with open("app/knowledge/faq.json", "r") as file:
     faq_data = json.load(file)
 
+with open("app/tickets.json", "r") as file:
+    tickets = json.load(file)
+
 class ChatMessage(BaseModel):
     message: str
 
-
 @app.get("/", response_class=HTMLResponse)
 def home(request: Request):
-    """
-    Display the home page of the AI Helpdesk Assistant.
-    """
     return templates.TemplateResponse(
         request=request,
         name="index.html",
@@ -42,9 +41,23 @@ def chat(chat_message: ChatMessage):
                     "reply": faq["answer"]
                 }
 
+    ticket_id = len(tickets) + 1
+
+    new_ticket = {
+        "id": ticket_id,
+        "message": chat_message.message,
+        "status": "open"
+    }
+
+    tickets.append(new_ticket)
+
+    with open("app/tickets.json", "w") as file:
+        json.dump(tickets, file, indent=4)
+
     return {
         "reply": (
             "I could not find a direct solution. "
-            "I can create an IT ticket for you."
+            f"An IT support ticket has been created. "
+            f"Ticket number: #{ticket_id:04d}"
         )
     }

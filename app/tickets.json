@@ -1,0 +1,12 @@
+[
+    {
+        "id": 1,
+        "message": "My printer is broken",
+        "status": "open"
+    },
+    {
+        "id": 2,
+        "message": "The monitor is not working",
+        "status": "open"
+    }
+]
