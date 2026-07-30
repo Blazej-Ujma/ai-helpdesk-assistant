@@ -1,4 +1,4 @@
-# Day 03 – Frontend Development & User Interaction / Frontend-Entwicklung & Benutzerinteraktion
+# Day 03 – Interactive Chat, FastAPI Backend & Knowledge Base
 
 **Date / Datum:** 29.07.2026
 
@@ -8,11 +8,25 @@
 
 ## EN
 
-Today's goal was to transform the static webpage into an interactive AI Helpdesk prototype. The focus was on improving the user interface, implementing JavaScript functionality and creating the first simulated AI conversation without using the backend yet.
+Today's goal was to transform the first static webpage into a functional AI Helpdesk prototype.
+
+The focus was not only on creating a modern chat interface, but also on connecting the frontend to a real FastAPI backend. Instead of generating responses directly inside JavaScript, the application should now communicate with the backend through an API.
+
+Another major objective was to improve the overall project structure by separating the support knowledge from the application logic. For this purpose, an external JSON knowledge base was introduced. This makes the application easier to maintain and allows new support topics to be added without modifying the Python code.
+
+Finally, the search algorithm was improved to recognize multiple keywords for each support topic, making the assistant more flexible and closer to a real IT helpdesk.
+
+---
 
 ## DE
 
-Das Ziel des heutigen Tages war es, die bisher statische Webseite in einen interaktiven AI-Helpdesk-Prototypen zu verwandeln. Der Schwerpunkt lag auf der Weiterentwicklung der Benutzeroberfläche, der Implementierung von JavaScript-Funktionen sowie der ersten simulierten KI-Konversation – zunächst noch ohne Backend.
+Das Ziel des heutigen Tages war es, aus der ersten statischen Webseite einen funktionierenden AI-Helpdesk-Prototypen zu entwickeln.
+
+Der Schwerpunkt lag nicht nur auf einer modernen Chat-Oberfläche, sondern auch auf der Anbindung des Frontends an ein echtes FastAPI-Backend. Anstatt Antworten direkt in JavaScript zu erzeugen, kommuniziert die Anwendung nun über eine API mit dem Backend.
+
+Ein weiterer wichtiger Schritt war die Verbesserung der Projektstruktur. Dafür wurde das Supportwissen vom eigentlichen Programmcode getrennt und erstmals in einer externen JSON-Datei gespeichert. Dadurch lässt sich die Wissensdatenbank später erweitern, ohne Änderungen am Python-Code vorzunehmen.
+
+Zusätzlich wurde die Suchlogik verbessert, sodass mehrere Schlüsselwörter dieselbe Supportantwort auslösen können. Dadurch reagiert der Helpdesk deutlich flexibler auf unterschiedliche Formulierungen.
 
 ---
 
@@ -22,7 +36,7 @@ Das Ziel des heutigen Tages war es, die bisher statische Webseite in einen inter
 
 ### User Interface
 
-The visual design of the application was finalized.
+The visual appearance of the application was finalized.
 
 The interface now includes:
 
@@ -37,9 +51,11 @@ The interface now includes:
 
 Several layouts were tested before selecting the final design.
 
+---
+
 ### Interactive Chat
 
-The application now behaves like a real chat interface.
+The application now behaves like a real chat application.
 
 Implemented features:
 
@@ -48,39 +64,71 @@ Implemented features:
 - automatic clearing of the input field
 - automatic focus on the input field
 - automatic scrolling to the latest message
+- typing indicator ("AI is typing...")
 
-### Simulated AI Assistant
+---
 
-The first local AI assistant was implemented completely in JavaScript.
+### FastAPI Backend
 
-Current workflow:
+The frontend is now connected to a real backend.
 
-1. The user sends a message.
-2. The message appears immediately in the chat.
-3. "AI is typing..." is displayed.
-4. After a short delay, the assistant responds automatically.
-5. Different responses are returned depending on the detected topic.
+Implemented features:
 
-Currently supported topics:
+- created the first FastAPI application
+- created the `/chat` API endpoint
+- received user messages through HTTP POST requests
+- validated requests using Pydantic
+- returned responses as JSON
+- connected JavaScript with FastAPI using the Fetch API
 
-- Password Reset
-- Outlook
-- VPN
-- General IT Issues
+---
 
-### JavaScript Improvements
+### External Knowledge Base
 
-The JavaScript code was restructured to make future development easier.
+The support knowledge was moved into a separate JSON file.
 
 Implemented improvements:
 
-- response texts stored inside a dedicated object
-- keyword detection using `includes()`
-- case-insensitive matching with `toLowerCase()`
-- reusable response handling
-- preparation for a future FAQ database
+- created the first `faq.json`
+- loaded the knowledge base automatically on application startup
+- removed hardcoded responses from the Python source code
+- separated application logic from support data
 
-The current logic can later be moved to FastAPI with only minimal changes.
+---
+
+### Improved Keyword Search
+
+The search logic was redesigned.
+
+Instead of supporting only one keyword per topic, every support entry now contains multiple keywords.
+
+Example:
+
+- password
+- login
+- sign in
+- credentials
+
+All of these return the same helpdesk response.
+
+This makes the assistant much more flexible when processing user requests.
+
+---
+
+### Testing
+
+Every feature was tested after implementation.
+
+Successfully tested support topics:
+
+- Password Reset
+- Login Problems
+- Outlook
+- Email
+- VPN
+- Remote Access
+
+Unknown requests correctly return the default response.
 
 ---
 
@@ -101,7 +149,9 @@ Die Oberfläche besitzt nun:
 - Send-Button
 - Chat-Sprechblasen
 
-Während der Entwicklung wurden verschiedene Layouts getestet, bevor das endgültige Design ausgewählt wurde.
+Vor der endgültigen Version wurden verschiedene Layouts getestet.
+
+---
 
 ### Interaktive Chatfunktion
 
@@ -114,39 +164,71 @@ Umgesetzt wurden:
 - automatisches Leeren des Eingabefelds
 - automatischer Fokus auf das Eingabefeld
 - automatisches Scrollen zur neuesten Nachricht
+- Anzeige „AI is typing...“
 
-### Simulierter KI-Assistent
+---
 
-Der erste lokale KI-Assistent wurde vollständig mit JavaScript umgesetzt.
+### FastAPI-Backend
 
-Der aktuelle Ablauf:
-
-1. Der Benutzer sendet eine Nachricht.
-2. Die Nachricht erscheint sofort im Chat.
-3. „AI is typing...“ wird angezeigt.
-4. Nach einer kurzen Verzögerung erscheint automatisch eine Antwort.
-5. Je nach erkanntem Thema wird eine unterschiedliche Antwort ausgegeben.
-
-Aktuell unterstützte Themen:
-
-- Passwort zurücksetzen
-- Outlook
-- VPN
-- allgemeine IT-Probleme
-
-### Verbesserungen im JavaScript
-
-Der JavaScript-Code wurde übersichtlicher aufgebaut und auf zukünftige Erweiterungen vorbereitet.
+Das Frontend kommuniziert nun mit einem echten Backend.
 
 Umgesetzt wurden:
 
-- Antworten in einem eigenen Objekt gespeichert
-- Schlüsselworterkennung mit `includes()`
-- Umwandlung in Kleinbuchstaben mit `toLowerCase()`
-- wiederverwendbare Antwortlogik
-- Vorbereitung auf eine spätere FAQ-Datenbank
+- Erstellung der ersten FastAPI-Anwendung
+- Erstellung des `/chat`-API-Endpunkts
+- Empfang von Benutzernachrichten per HTTP-POST
+- Validierung der Daten mit Pydantic
+- Rückgabe der Antworten als JSON
+- Verbindung zwischen JavaScript und FastAPI über die Fetch-API
 
-Die aktuelle Logik kann später nahezu unverändert in das FastAPI-Backend übernommen werden.
+---
+
+### Externe Wissensdatenbank
+
+Die Supportinformationen befinden sich nun in einer separaten JSON-Datei.
+
+Umgesetzt wurden:
+
+- Erstellung der ersten `faq.json`
+- automatisches Laden der Wissensdatenbank beim Start der Anwendung
+- Auslagerung aller Supportantworten aus dem Python-Code
+- Trennung von Programmcode und Supportdaten
+
+---
+
+### Verbesserte Suchlogik
+
+Die Suchfunktion wurde erweitert.
+
+Jedes Supportthema kann nun mehrere Schlüsselwörter enthalten.
+
+Beispielsweise führen die Begriffe
+
+- password
+- login
+- sign in
+- credentials
+
+alle zur gleichen Antwort.
+
+Dadurch reagiert der Helpdesk flexibler auf unterschiedliche Formulierungen der Benutzer.
+
+---
+
+### Tests
+
+Alle Funktionen wurden nach jeder Änderung getestet.
+
+Erfolgreich getestet wurden:
+
+- Passwort zurücksetzen
+- Login-Probleme
+- Outlook
+- E-Mail
+- VPN
+- Remote Access
+
+Unbekannte Anfragen liefern eine Standardantwort, wenn keine passende Lösung gefunden wurde.
 
 ---
 
@@ -156,14 +238,14 @@ Die aktuelle Logik kann später nahezu unverändert in das FastAPI-Backend über
 
 Today I learned:
 
-- how JavaScript communicates with HTML
-- how event listeners work
-- how dynamic HTML elements are created
-- how chat messages can be generated without reloading the page
-- how simple rule-based AI responses work
-- how JavaScript objects help organize data
-- how automatic scrolling improves usability
-- how clean code structure simplifies future backend integration
+- how JavaScript communicates with FastAPI
+- how REST API endpoints work
+- how JSON data is exchanged between frontend and backend
+- how Pydantic validates incoming requests
+- how external JSON files can be used as a knowledge base
+- how nested loops improve keyword searching
+- why separating data from application logic makes software easier to maintain
+- why testing every small step reduces debugging time
 
 ---
 
@@ -171,14 +253,14 @@ Today I learned:
 
 Heute habe ich gelernt:
 
-- wie JavaScript mit HTML zusammenarbeitet
-- wie Event Listener funktionieren
-- wie HTML-Elemente dynamisch erstellt werden
-- wie Chatnachrichten ohne Neuladen der Seite erzeugt werden
-- wie einfache regelbasierte KI-Antworten funktionieren
-- wie JavaScript-Objekte Daten übersichtlich speichern
-- wie automatisches Scrollen die Benutzerfreundlichkeit verbessert
-- warum eine saubere Code-Struktur die spätere Backend-Integration erleichtert
+- wie JavaScript mit FastAPI kommuniziert
+- wie REST-API-Endpunkte funktionieren
+- wie JSON zwischen Frontend und Backend ausgetauscht wird
+- wie Pydantic eingehende Daten validiert
+- wie externe JSON-Dateien als Wissensdatenbank verwendet werden
+- wie verschachtelte Schleifen die Schlüsselwortsuche verbessern
+- warum die Trennung von Daten und Programmcode Software wartbarer macht
+- warum konsequentes Testen nach jeder kleinen Änderung Fehler schneller aufdeckt
 
 ---
 
@@ -186,25 +268,21 @@ Heute habe ich gelernt:
 
 ## EN
 
-Several interface concepts were tested before selecting the final layout.
+During development several small problems occurred, mainly related to Python indentation, JSON structure and frontend-backend communication.
 
-During development several small JavaScript and CSS issues occurred, including missing brackets, incorrect CSS selectors and unsaved files.
+Each issue was solved by testing every small implementation step immediately before continuing.
 
-Each issue was solved by testing every small change immediately instead of changing many things at once.
-
-This iterative workflow made debugging much easier and highlighted the importance of careful testing during development.
+Working incrementally proved to be much more efficient than changing many parts of the project at once.
 
 ---
 
 ## DE
 
-Während der Entwicklung wurden verschiedene Layouts getestet, bevor das endgültige Design ausgewählt wurde.
-
-Außerdem traten einige kleinere JavaScript- und CSS-Probleme auf, unter anderem fehlende Klammern, falsche CSS-Selektoren sowie nicht gespeicherte Dateien.
+Während der Entwicklung traten einige kleinere Probleme auf, insbesondere bei der Python-Einrückung, der Struktur der JSON-Datei sowie bei der Kommunikation zwischen Frontend und Backend.
 
 Alle Probleme konnten durch konsequentes Testen nach jeder kleinen Änderung schnell gefunden und behoben werden.
 
-Dieser schrittweise Entwicklungsprozess zeigte erneut, wie wichtig regelmäßiges Testen während der Entwicklung ist.
+Der schrittweise Entwicklungsprozess hat erneut gezeigt, dass kleine, nachvollziehbare Änderungen das Debugging erheblich erleichtern.
 
 ---
 
@@ -212,16 +290,128 @@ Dieser schrittweise Entwicklungsprozess zeigte erneut, wie wichtig regelmäßige
 
 ## EN
 
-The next milestone is connecting the frontend to the FastAPI backend.
+The next milestone is implementing an automatic IT ticket system for unknown support requests.
 
-The JavaScript frontend will send messages to a `/chat` endpoint.
+After that, the OpenAI API will be integrated so the assistant can generate intelligent answers whenever no matching FAQ entry is found.
 
-The backend will then read responses from a local `faq.json` knowledge base before integrating the OpenAI API in a later stage.
+---
 
 ## DE
 
-Als Nächstes wird das Frontend mit dem FastAPI-Backend verbunden.
+Als Nächstes wird ein automatisches Ticketsystem für unbekannte Supportanfragen implementiert.
 
-Das JavaScript sendet die Benutzernachricht künftig an einen `/chat`-Endpunkt.
+Anschließend wird die OpenAI-API integriert, sodass der Helpdesk intelligente Antworten generieren kann, wenn keine passende FAQ gefunden wird.
 
-Das Backend wird die Antworten anschließend aus einer lokalen `faq.json` laden, bevor später die OpenAI-API integriert wird.
+---
+
+## Automatic Ticket Creation
+
+The first version of an automatic IT ticket system was implemented.
+
+Whenever the knowledge base cannot find a matching solution, the backend now creates a support ticket automatically.
+
+Implemented features:
+
+- automatic ticket creation
+- sequential ticket numbers
+- local ticket storage in `tickets.json`
+- ticket status (`open`)
+- confirmation message displayed in the chat
+
+This simulates a typical workflow of an internal IT helpdesk.
+
+---
+
+## Automatische Ticketerstellung
+
+Die erste Version eines automatischen IT-Ticketsystems wurde implementiert.
+
+Findet die Wissensdatenbank keine passende Lösung, erstellt das Backend nun automatisch ein Support-Ticket.
+
+Umgesetzt wurden:
+
+- automatische Ticketerstellung
+- fortlaufende Ticketnummern
+- lokale Speicherung in `tickets.json`
+- Ticketstatus (`open`)
+- Bestätigung im Chat nach erfolgreicher Erstellung
+
+Dadurch ähnelt der Ablauf bereits einem typischen internen IT-Helpdesk.
+
+---
+
+# What I Learned / Was ich gelernt habe
+
+## EN
+
+Additional topics learned today:
+
+- how JSON files can be used as a simple database
+- how Python writes data permanently to JSON files
+- how sequential ticket numbers can be generated
+- how backend data persists between multiple requests
+- how to debug routing and indentation issues in FastAPI
+
+---
+
+## DE
+
+Zusätzlich habe ich heute gelernt:
+
+- wie JSON-Dateien als einfache Datenbank genutzt werden können
+- wie Python Daten dauerhaft in JSON-Dateien speichert
+- wie fortlaufende Ticketnummern erzeugt werden
+- wie Backend-Daten zwischen mehreren Anfragen erhalten bleiben
+- wie sich Routing- und Einrückungsfehler in FastAPI systematisch debuggen lassen
+
+---
+
+# Challenges / Herausforderungen
+
+## EN
+
+During implementation, a Python indentation error temporarily prevented the application from starting. Additionally, the home route was accidentally removed, resulting in HTTP 404 errors.
+
+Both issues were solved by debugging the application step by step, checking the registered FastAPI routes and carefully correcting the code structure.
+
+This demonstrated once again how important incremental development and systematic debugging are during software development.
+
+---
+
+## DE
+
+Während der Implementierung führte ein Python-Einrückungsfehler zunächst dazu, dass die Anwendung nicht mehr gestartet werden konnte. Zusätzlich wurde versehentlich die Startseiten-Route entfernt, wodurch HTTP-404-Fehler entstanden.
+
+Beide Probleme konnten durch systematisches Debugging, das Überprüfen der registrierten FastAPI-Routen sowie das schrittweise Korrigieren des Codes behoben werden.
+
+Dadurch wurde erneut deutlich, wie wichtig kleine Entwicklungsschritte und ein strukturierter Debugging-Prozess bei der Softwareentwicklung sind.
+
+---
+
+# Current Project Status / Aktueller Projektstand
+
+- ✅ Interactive web interface
+- ✅ FastAPI backend
+- ✅ JSON knowledge base
+- ✅ Keyword-based FAQ search
+- ✅ Automatic IT ticket creation
+- ⏳ OpenAI API integration
+- ⏳ Final presentation
+
+---
+
+# Next Steps / Nächster Schritt
+
+## EN
+
+The next milestone is integrating the OpenAI API.
+
+The application will first search the local knowledge base. If no suitable answer is found, the request will be forwarded to the OpenAI API. If the AI still cannot resolve the problem, an IT support ticket will be created automatically.
+
+---
+
+## DE
+
+Als nächster Meilenstein folgt die Integration der OpenAI-API.
+
+Die Anwendung durchsucht zunächst die lokale Wissensdatenbank. Wird dort keine passende Antwort gefunden, wird die Anfrage an die OpenAI-API weitergeleitet. Kann auch die KI das Problem nicht lösen, wird automatisch ein IT-Support-Ticket erstellt.
