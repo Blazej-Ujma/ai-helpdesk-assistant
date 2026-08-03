@@ -63,42 +63,61 @@ def test_ai():
     }
 
 previous_response_id = None
+last_faq_context = None
 
 @app.post("/chat")
 def chat(chat_message: ChatMessage):
     global previous_response_id
+    global last_faq_context
 
-    message = chat_message.message.lower()
+    original_message = chat_message.message
+    message = original_message.lower()
 
     # First, search the local FAQ knowledge base.
     for faq in faq_data:
         for keyword in faq["keywords"]:
-            if keyword in message:
+            if keyword.lower() in message:
+                # Remove an older AI conversation context.
+                previous_response_id = None
+
+                # Remember the current FAQ issue for a possible follow-up.
+                last_faq_context = faq.get("question", faq.get("answer", "the previous IT issue"))
+
                 return {
                     "reply": faq["answer"]
                 }
 
     try:
+        instructions = (
+            "You are an internal IT helpdesk assistant. "
+            "Answer in very simple English for users with little technical knowledge. "
+            "Use a maximum of 4 short troubleshooting steps. "
+            "Avoid technical words and explain every action clearly. "
+            "Keep the answer short. "
+            "Use the previous conversation context when the user sends a short follow-up. "
+            "Do not invent company-specific information. "
+            "If the user asks for human support, if administrator access is required, "
+            "or if the problem cannot be solved safely with simple troubleshooting steps, "
+            "respond exactly in this format:\n"
+            "CREATE_TICKET\n"
+            "Title: <short ticket title>\n"
+            "Description: <clear one-paragraph summary for the IT technician>\n"
+            "Do not write anything before CREATE_TICKET. "
+            "If the issue can be solved safely, do not create a ticket."
+        )
+
+        # Add the last FAQ issue as context for a short follow-up.
+        if last_faq_context is not None:
+            instructions += (
+                f"\nThe user's previous issue was: {last_faq_context}. "
+                "Treat short follow-up messages such as 'It does not work' "
+                "as referring to this issue."
+            )
+
         request_data = {
             "model": "gpt-5",
-            "instructions": (
-                "You are an internal IT helpdesk assistant. "
-                "Answer in very simple English for users with little technical knowledge. "
-                "Use a maximum of 4 short troubleshooting steps. "
-                "Avoid technical words and explain every action clearly. "
-                "Keep the answer short. "
-                "Use the previous conversation context when the user sends a short follow-up. "
-                "Do not invent company-specific information. "
-                "If the user asks for human support, if administrator access is required, "
-                "or if the problem cannot be solved safely with simple troubleshooting steps, "
-                "respond exactly in this format:\n"
-                "CREATE_TICKET\n"
-                "Title: <short ticket title>\n"
-                "Description: <clear one-paragraph summary for the IT technician>\n"
-                "Do not write anything before CREATE_TICKET. "
-                "If the issue can be solved safely, do not create a ticket."
-            ),
-            "input": chat_message.message,
+            "instructions": instructions,
+            "input": original_message,
             "reasoning": {
                 "effort": "minimal"
             },
@@ -111,6 +130,8 @@ def chat(chat_message: ChatMessage):
         response = client.responses.create(**request_data)
 
         previous_response_id = response.id
+        last_faq_context = None
+
         reply = response.output_text.strip()
 
         # Create a structured ticket when the AI requests human support.
@@ -145,7 +166,7 @@ def chat(chat_message: ChatMessage):
             if description == "":
                 description = (
                     "The user requires human IT support. "
-                    f"Original request: {chat_message.message}"
+                    f"Original request: {original_message}"
                 )
 
             ticket_id = len(tickets) + 1
@@ -171,13 +192,13 @@ def chat(chat_message: ChatMessage):
                 )
             }
 
-        # Return a normal AI answer.
         return {
             "reply": reply
         }
 
     except Exception as e:
         print(e)
+
         ticket_id = len(tickets) + 1
 
         new_ticket = {
@@ -185,7 +206,7 @@ def chat(chat_message: ChatMessage):
             "title": "AI Service Error",
             "description": (
                 "The AI service was unavailable while processing this request. "
-                f"Original request: {chat_message.message}"
+                f"Original request: {original_message}"
             ),
             "status": "open",
             "created_by": "AI Helpdesk Assistant"
