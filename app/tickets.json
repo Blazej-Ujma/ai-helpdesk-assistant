@@ -1,12 +1,30 @@
 [
     {
         "id": 1,
-        "message": "My printer is broken",
-        "status": "open"
+        "title": "Second monitor flickering and not fixed by basic steps",
+        "description": "User\u2019s second monitor keeps flickering. They checked and reseated video and power cables, tried different cables and ports, adjusted refresh rate and resolution, power-cycled devices, and tested with another device. Issue persists. Please diagnose monitor, cable, and PC video ports and provide replacement parts if needed.",
+        "status": "open",
+        "created_by": "AI Helpdesk Assistant"
     },
     {
         "id": 2,
-        "message": "The monitor is not working",
-        "status": "open"
+        "title": "AI Service Error",
+        "description": "The AI service was unavailable while processing this request. Original request: My second monitor is flickering.",
+        "status": "open",
+        "created_by": "AI Helpdesk Assistant"
+    },
+    {
+        "id": 3,
+        "title": "AI Service Error",
+        "description": "The AI service was unavailable while processing this request. Original request: My second monitor is flickering.",
+        "status": "open",
+        "created_by": "AI Helpdesk Assistant"
+    },
+    {
+        "id": 4,
+        "title": "Second monitor flickering after basic troubleshooting",
+        "description": "User\u2019s second monitor keeps flickering. They checked and reseated video cables, power, and inputs; restarted PC and monitor; set refresh rate to recommended; tried different ports, cables, power outlet, and confirmed behavior persists. They request human assistance for further diagnosis and repair.",
+        "status": "open",
+        "created_by": "AI Helpdesk Assistant"
     }
 ]
