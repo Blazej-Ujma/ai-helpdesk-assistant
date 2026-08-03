@@ -1,6 +1,6 @@
 # Day 04 – OpenAI Integration & Intelligent Helpdesk Workflow
 
-**Date / Datum:** 03.08.2026
+**Date / Datum:** 02.08.2026
 
 ---
 
